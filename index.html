@@ -6,7 +6,7 @@
 
   <title>Reactive Configuration Space Collision-Free Motion Planning for
     Mobile Manipulator in Unforeseen Scenarios</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="static/images/icon.jpeg">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -96,7 +96,8 @@
               mobile base, we introduce a tangential velocity optimization to provide heuristic guidance for whole-body
               planning, helping the system avoid local minima. We also apply a control post-processing method to refine
               the base's path and reduce oscillations. This framework was tested on a 9-degree-of-freedom mobile
-              manipulator. Simulations in various scenarios show that the proposed method is robust, achieving over 77\%
+              manipulator. Simulations in various scenarios show that the proposed method is robust, achieving around
+              80%
               success rates even with dynamic obstacles. Real-world tests further demonstrate its effectiveness and
               practical applicability.
             </p>
@@ -107,65 +108,19 @@
   </section>
   <!-- End paper abstract -->
 
-  <!-- Youtube video -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <!-- Paper video. -->
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
         <h2 class="title is-3">Video Presentation</h2>
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-
-            <div class="publication-video">
-              <!-- Youtube embed code here -->
-              <iframe src="https://youtu.be/CZUe1dBj54E" frameborder="0" allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="static/videos/TIE.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
-  <!-- End youtube video -->
-
-  <!-- Image carousel -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel1.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              First image description.
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel2.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Second image description.
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel3.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Third image description.
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel4.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Fourth image description.
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End image carousel -->
+  <!-- End teaser video -->
 
   <footer class="footer">
     <div class="container">
@@ -174,8 +129,7 @@
           <div class="content">
             <p>
               This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
-                target="_blank">Academic Project Page Template</a> which was adopted from the <a
-                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+                target="_blank">Academic Project Page Template</a>.
             </p>
           </div>
         </div>
