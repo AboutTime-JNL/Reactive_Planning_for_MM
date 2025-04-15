@@ -1,4 +1,3 @@
-```markdown
 # Reactive Configuration Space Collision-Free Motion Planning for Mobile Manipulator in Unforeseen Scenarios
 
 This repository contains the official source code for the paper:
