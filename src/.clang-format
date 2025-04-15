@@ -1,0 +1,8 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+ColumnLimit: 80
+TabWidth: 4
+IndentWidth: 4
+IncludeBlocks: Preserve
+---

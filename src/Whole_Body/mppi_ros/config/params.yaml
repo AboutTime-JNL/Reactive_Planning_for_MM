@@ -1,0 +1,33 @@
+solver:
+  rollouts: 200 # number of rollouts
+  lambda: 0.0001 # scaling on input/noise cost
+  h: 10.0 # scaling on exponential cost for computing rollouts' weights
+  step_size: 0.01 # simulation step size
+  horizon: 1.0 # time horizon (secs)
+
+  caching_factor: 0.2 # the caching_factor pecentage of previous rollouts is kept as warm start
+  substeps: 1 # number of optimization substeps (never investigated)
+
+  gradient_step_size: 1.0
+
+  input_variance: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+
+  discount_factor: 1.0 # apply a discount factor on the cost over the horizon
+  threads: 8 # number of threads, set to 1 to not use multithreaded sampling
+
+  filtering: true
+  filters_order: [1, 1, 1, 1, 1, 1, 1, 1, 1] # polynomial used to approximate the input sequence
+  filters_window: [10, 10, 10, 10, 10, 10, 10, 10, 10] # filter window length
+
+  u_min: [-0.5, -0.5, -3.1415926, -3.1415926, -3.1415926, -3.1415926, -3.1415926, -3.1415926, -1.0]
+  u_max: [0.5, 0.5, 3.1415926, 3.1415926, 3.1415926, 3.1415926, 3.1415926, 3.1415926, 1.0]
+
+linear_weight: 10.0
+angular_weight: 1.0
+safe_distance: 0.001
+
+policy_update_rate: 50.0  # execute as fast as possible, used if sequential=false test:30Hz(1 thread) 100Hz(8 thread)
+reference_update_rate: 10.0 # update reference at this rate, used if sequential=false
+esdf_update_rate: 50.0
+
+sim_dt: 0.01

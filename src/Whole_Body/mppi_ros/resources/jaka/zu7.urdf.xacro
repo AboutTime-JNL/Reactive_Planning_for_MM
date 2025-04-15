@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+<robot name="zu7_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="zu7_robot" params="prefix q1 q2 q3 q4 q5 q6 source">
+
+    <link name="${prefix}base_link">
+        <inertial>
+            <origin xyz="0.00096371 8.8222E-08 0.019555" rpy="0 0 0" />
+            <mass value="4.0392" />
+            <inertia ixx="0.0048763" ixy="-1.8056E-07" ixz="2.5196E-05" iyy="0.0068003" iyz="-1.7678E-09" izz="0.010618" />
+        </inertial>  
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/base.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <mesh
+            filename="package://${source}/resources/mesh/jaka_zu7/collision/base.STL" />
+        </geometry>
+        </collision>
+    </link>
+    
+    <link name="${prefix}shoulder_link">
+        <inertial>
+            <origin xyz="-2.5186E-07 0.0033226 -0.001509" rpy="0 0 0" />
+            <mass value="3.027" />
+            <inertia ixx="0.044302" ixy="1.5349E-07" ixz="-6.1966E-07" iyy="0.043091" iyz="1.4326E-05" izz="0.030523" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/shoulder_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/shoulder_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}shoulder_pan_joint" type="revolute">
+        <origin xyz="0 0 0.12015" rpy="0 0 ${q1}" />
+        <parent link="${prefix}base_link" />
+        <child link="${prefix}shoulder_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.28" upper="6.28" effort="2000" velocity="3.57" />
+    </joint>
+
+    <link name="${prefix}upper_arm_link">       
+        <inertial>
+            <origin xyz="0.18 8.8001E-09 -0.14308" rpy="0 0 0" />
+            <mass value="8.5744" />
+            <inertia ixx="0.1014" ixy="-1.1106E-06" ixz="-1.3363E-07" iyy="1.1119" iyz="2.9045E-08" izz="1.0844" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/upper_arm_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/upper_arm_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}shoulder_lift_joint" type="revolute">
+        <origin xyz="0 0.14415 0" rpy="-1.5708 ${q2} 0" />
+        <parent link="${prefix}shoulder_link" />
+        <child link="${prefix}upper_arm_link" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-1.48" upper="4.625" effort="1500" velocity="3.57" />
+    </joint>
+
+    <link name="${prefix}forearm_link">    
+        <inertial>
+            <origin xyz="0.15515 5.4643E-08 -0.012576" rpy="0 0 0" />
+            <mass value="3.3124" />
+            <inertia ixx="0.020968" ixy="-3.9001E-06" ixz="-0.018394" iyy="0.28365" iyz="-1.2859E-07" izz="0.27848" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/forearm_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/forearm_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}elbow_joint" type="revolute">
+        <origin xyz="0.36 0 -0.14264" rpy="0 0 ${q3}" />
+        <parent link="${prefix}upper_arm_link" />
+        <child link="${prefix}forearm_link" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-3.05" upper="3.05" effort="1500" velocity="3.57" />
+    </joint>
+
+    <link name="${prefix}wrist_1_link">     
+        <inertial>
+            <origin xyz="-2.1345E-06 -0.0058004 0.0026717" rpy="0 0 0" />
+            <mass value="1.1105" />
+            <inertia ixx="0.0092564" ixy="1.1341E-07" ixz="-1.2578E-08" iyy="0.0052251" iyz="-8.3499E-05" izz="0.0089683" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/wrist_1_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/wrist_1_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}wrist_1_joint" type="revolute">
+        <origin xyz="0.30353 0 0.11501" rpy="0 0 ${q4}" />
+        <parent link="${prefix}forearm_link" />
+        <child link="${prefix}wrist_1_link" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-1.48" upper="4.625" effort="1000" velocity="3.57" />
+    </joint>
+
+    <link name="${prefix}wrist_2_link">     
+        <inertial>
+            <origin xyz="-2.0304E-06 -0.0028889 -0.0023424" rpy="0 0 0" />
+            <mass value="1.26678" />
+            <inertia ixx="0.012993" ixy="-1.0764E-07" ixz="5.8559E-09" iyy="0.0058454" iyz="4.5426E-05" izz="0.0127" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/wrist_2_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/wrist_2_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}wrist_2_joint" type="revolute">
+        <origin xyz="0 0.1135 0" rpy="-1.5708 ${q5} 0" />
+        <parent link="${prefix}wrist_1_link" />
+        <child link="${prefix}wrist_2_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.28" upper="6.28" effort="1000" velocity="3.57" />
+    </joint>
+
+    <link name="${prefix}wrist_3_link">  
+        <inertial>
+            <origin xyz="2.7652E-05 -1.3485E-05 -0.021245" rpy="0 0 0" />
+            <mass value="0.28338" />
+            <inertia ixx="0.00071853" ixy="-6.9778E-07" ixz="-6.378E-07" iyy="0.00072375" iyz="8.3072E-07" izz="0.0011337" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/visual/wrist_3_link.DAE" />
+            </geometry>
+            <material name="">
+                <color rgba="0.84706 0.84706 0.84706 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://${source}/resources/mesh/jaka_zu7/collision/wrist_3_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="${prefix}wrist_3_joint" type="revolute">
+        <origin xyz="0 0.107 0" rpy="-1.5708 ${q6} 0" />
+        <parent link="${prefix}wrist_2_link" />
+        <child link="${prefix}wrist_3_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-6.28" upper="6.28" effort="1000" velocity="3.57" />
+    </joint>
+
+    <joint name="${prefix}ee_fixed_joint" type="fixed">
+      <parent link="${prefix}wrist_3_link" />
+      <child link = "panda_hand" />
+      <origin xyz="0.0 0.0 0.034" rpy="${pi/2.0} ${-pi/2.0} 0.0" />
+    </joint>
+
+    <link name="panda_hand">
+    </link>
+
+    <!-- collision -->
+    <!-- <joint name="base_collision_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0 0.12015"/>
+            <parent link="${prefix}base_link"/>
+            <child link="${prefix}base_collision_link"/>
+    </joint>
+
+    <link name="${prefix}base_collision_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="shoulder_collision_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0.14415 0"/>
+            <parent link="${prefix}shoulder_link"/>
+            <child link="${prefix}shoulder_collision_link"/>
+    </joint>
+
+    <link name="${prefix}shoulder_collision_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="upper_arm_collision_joint_1" type="fixed">
+            <origin rpy="0 0 0" xyz="0.18 0 0"/>
+            <parent link="${prefix}upper_arm_link"/>
+            <child link="${prefix}upper_arm_collision_link_1"/>
+    </joint>
+
+    <link name="${prefix}upper_arm_collision_link_1">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="upper_arm_collision_joint_2" type="fixed">
+            <origin rpy="0 0 0" xyz="0.36 0 0"/>
+            <parent link="${prefix}upper_arm_link"/>
+            <child link="${prefix}upper_arm_collision_link_2"/>
+    </joint>
+
+    <link name="${prefix}upper_arm_collision_link_2">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="forearm_collision_joint_1" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <parent link="${prefix}forearm_link"/>
+            <child link="${prefix}forearm_collision_link_1"/>
+    </joint>
+
+    <link name="${prefix}forearm_collision_link_1">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="forearm_collision_joint_2" type="fixed">
+            <origin rpy="0 0 0" xyz="0.15175 0 0"/>
+            <parent link="${prefix}forearm_link"/>
+            <child link="${prefix}forearm_collision_link_2"/>
+        </joint>
+
+    <link name="${prefix}forearm_collision_link_2">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="forearm_collision_joint_3" type="fixed">
+            <origin rpy="0 0 0" xyz="0.3035 0 0"/>
+            <parent link="${prefix}forearm_link"/>
+            <child link="${prefix}forearm_collision_link_3"/>
+        </joint>
+
+    <link name="${prefix}forearm_collision_link_3">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="wrist_1_collision_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0.1135 0"/>
+            <parent link="${prefix}wrist_1_link"/>
+            <child link="${prefix}wrist_1_collision_link"/>
+        </joint>
+
+    <link name="${prefix}wrist_1_collision_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="wrist_2_collision_joint_1" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0.107 0"/>
+            <parent link="${prefix}wrist_2_link"/>
+            <child link="${prefix}wrist_2_collision_link_1"/>
+        </joint>
+
+    <link name="${prefix}wrist_2_collision_link_1">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <joint name="wrist_2_collision_joint_2" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0.214 0"/>
+            <parent link="${prefix}wrist_2_link"/>
+            <child link="${prefix}wrist_2_collision_link_2"/>
+        </joint>
+
+    <link name="${prefix}wrist_2_collision_link_2">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <sphere radius="0.05" />
+            </geometry>            
+        </visual>
+    </link>
+
+    <transmission name="${prefix}shoulder_pan_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}shoulder_pan_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}shoulder_pan_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="${prefix}shoulder_lift_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}shoulder_lift_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}shoulder_lift_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="${prefix}elbow_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}elbow_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}elbow_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="${prefix}wrist_1_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}wrist_1_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}wrist_1_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="${prefix}wrist_2_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}wrist_2_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}wrist_2_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <transmission name="${prefix}wrist_3_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}wrist_3_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}wrist_3_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission> -->
+
+
+  </xacro:macro>
+</robot>

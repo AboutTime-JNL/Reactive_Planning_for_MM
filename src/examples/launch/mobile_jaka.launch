@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Load robot description -->
+    <arg name="description_file" default="$(find mppi_ros)/resources/jaka/jaka_mobile.urdf.xacro"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg description_file) resources_prefix:='file://'"/>
+
+    <!-- Publish robot state (joints) as TF -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+        <param name="publish_frequency" value="100"/>
+        <param name="use_tf_static" value="true"/>
+        <remap from="robot_description" to="robot_description"/>
+        <remap from="joint_states" to="/sim_joint_states"/>
+    </node>
+
+    <!-- Open Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mppi_ros)/config/config.rviz" output="screen"/>
+
+</launch>
